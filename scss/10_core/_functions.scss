@@ -1,0 +1,33 @@
+/// Palette color getter for syntax nicety
+/// @require $palette
+/// @see $palette-by-function
+///
+/// @param {string} $color-name
+/// @param {map} $of-palette
+///
+/// @return {color} Appropriate color
+@function palette($color-name, $of-palette: $palette) {
+  $color: map-get($of-palette, $color-name);
+  @if $color != null {
+    @return $color;
+  }
+  @error '#{$color-name} was not found in the chosen palette.';
+}
+
+/// Custom image asset paths
+///
+/// @param {string} $image An image name.
+///
+/// @return {string} - A custom image path based on a value of the $assets map.
+@function image-path($image) {
+  @return url('/images/' + $image);
+}
+
+/// Font asset paths
+///
+/// @param {string} $font A font name.
+///
+/// @return {string} A custom font path based on a value of the $assets map.
+@function font-path($font) {
+  @return url('/fonts/' + $font);
+}

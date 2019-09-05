@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Menu Toggle - Javascript to help create custom burger menus</title>
+  <meta name="description" content="Javascript library to help highly customized hamburger menus">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/docs-styles.css">
+</head>
+
+<body>
+<div class="body-inner">
+
+  <main>
+    <h1>Menu Toggle - Javascript to help create custom collapsible menus</h1>
+    <p>
+      This code can help you create a custom hamburger, falafel, kebob, and other expanding menus.
+      This library still requires styling to make it look and animate as desired, but below are a few example implementations.
+    </p>
+
+    <h2>Features:</h2>
+    <ul>
+      <li>Manages state of all 'menu toggles' and can manage dependencies between them (e.g. can be expanded at the same time or should close all others)</li>
+      <li>Adds open and shut functions to collapsible elements</li>
+      <li>Hiding the menu-toggle button (e.g. the hamburger) will open the collapsible container and disable the collapsible functionality so the collapsible behavior can be toggled from CSS.</li>
+      <li>Adds keyboard navigation to menu</li>
+      <li>Manages accessibilty properties</li>
+      <li>Can have a no-js implementation (if JS is loaded it will rip out no-js markup since it's not as accessible)</li>
+    </ul>
+
+    <pre><code>
+      &lt;input id="desktop-burger-toggle" class="menu-toggle u-element-invisible" type="checkbox" aria-controls="desktop-burger-menu-container">
+      &lt;label class="menu-toggle__button" for="desktop-burger-toggle" data-controls="desktop-burger-menu-container">
+        Menu icon or Label Text
+        &lt;span class="menu-toggle-assistive-text u-element-invisible">Toggle menu visibility&lt;/span>
+      &lt;/label>
+      &lt;div class="menu-toggle__toggleable">
+        &lt;div class="menu-toggle__toggleable-content-wrapper">
+          Content in Collapsible Container
+        &lt;/div>
+      &lt;/div>
+    </code></pre>
+  </main>
+
+  <h3>Simple example</h3>
+  <div class="sample-menu-toggle">
+    <!-- Begin example 1 -->
+    <input
+      id="menu-toggle--example-1"
+      class="menu-toggle visually-hidden menu-toggle--example-1"
+      aria-controls="menu-toggle__container--example-1"
+      type="checkbox"
+    >
+    <label
+      class="menu-toggle__button menu-toggle__button--example-1"
+      for="menu-toggle--example-1"
+      data-controls="menu-toggle__container--example-1"
+      aria-haspopup="true"
+      aria-label="Toggle example 1 visibility"
+      role="menuitem"
+    >
+      Menu Toggle
+    </label>
+
+    <div
+      class="menu-toggle__toggleable menu-toggle__toggleable--example-1-wrapper"
+      id="menu-toggle__container--example-1"
+    >
+      <div class="menu-toggle__toggleable-content-wrapper menu-toggle__toggleable-content-wrapper--example-1">
+        This is the content for the example 1
+      </div>
+    </div>
+    <!-- End example 1 -->
+  </div>
+
+  <h3>Nested Example</h3>
+  <div style="sample-menu-toggle">
+    <!-- Begin example 2 -->
+    <input
+      id="menu-toggle--example-2"
+      class="menu-toggle visually-hidden menu-toggle--example-2"
+      aria-controls="menu-toggle__container--example-2"
+      type="checkbox"
+    >
+    <label
+      class="menu-toggle__button menu-toggle__button--main-menu"
+      for="menu-toggle--example-2"
+      data-controls="menu-toggle__container--example-2"
+      aria-haspopup="true"
+      aria-label="Toggle example 1 visibility"
+      role="menuitem"
+    >
+      Menu Toggle
+    </label>
+
+    <div
+      class="menu-toggle__toggleable menu-toggle__toggleable--example-2-wrapper"
+      id="menu-toggle__container--example-2"
+    >
+      <div class="menu-toggle__toggleable-content-wrapper menu-toggle__toggleable-content-wrapper--example-2">
+        Nested menu toggle example
+
+        <!-- Begin nested example -->
+        <input
+          id="menu-toggle--nested-example"
+          class="menu-toggle visually-hidden menu-toggle--nested-example"
+          aria-controls="menu-toggle__container--nested-example"
+          type="checkbox"
+        >
+        <label
+          class="menu-toggle__button menu-toggle__button--main-menu"
+          for="menu-toggle--nested-example"
+          data-controls="menu-toggle__container--nested-example"
+          aria-haspopup="true"
+          aria-label="Toggle example 1 visibility"
+          role="menuitem"
+        >
+          Menu Toggle
+        </label>
+
+        <div
+          class="menu-toggle__toggleable menu-toggle__toggleable--nested-example-wrapper"
+          id="menu-toggle__container--nested-example"
+        >
+          <div class="menu-toggle__toggleable-content-wrapper menu-toggle__toggleable-content-wrapper--nested-example">
+            This is the content for the nested example
+          </div>
+        </div>
+        <!-- End nested example -->
+
+      </div>
+    </div>
+    <!-- End example 1 -->
+  </div>
+</div>
+
+<script src="distributable/vanilla-object/menu-toggle.js"></script>
+<script src="distributable/example-code/vanilla-object.js"></script>
+</body>
+
+</html>

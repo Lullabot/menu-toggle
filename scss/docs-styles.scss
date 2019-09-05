@@ -1,0 +1,13 @@
+// sass-lint:disable clean-import-paths
+@import '10_core';
+@import '20_base';
+@import '_menu-toggle.scss';
+
+body {
+  margin: 0;
+  padding: 3rem 4rem;
+}
+
+.sample-menu-toggle {
+  position: relative;
+}

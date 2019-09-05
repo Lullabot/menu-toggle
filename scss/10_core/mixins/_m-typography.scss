@@ -1,0 +1,91 @@
+// Headings type styles
+// -----------------------------------------------------------------------------
+
+@mixin u-heading-xl {
+  @include font-family(sans);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+
+  // An adjacent heading of one level lower shouldn't have a lot of white space in between
+  + &,
+  + .u-heading-l {
+    margin-top: 0;
+  }
+}
+
+@mixin u-heading-l {
+  @include font-family(sans);
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+
+  // An adjacent heading of one level lower shouldn't have a lot of white space in between
+  + &,
+  + .u-heading-xm {
+    margin-top: 0;
+  }
+}
+
+@mixin u-heading-xm {
+  @include font-family(sans);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+
+  // An adjacent heading of one level lower shouldn't have a lot of white space in between
+  + &,
+  + .u-heading-m {
+    margin-top: 0;
+  }
+}
+
+@mixin u-heading-m {
+  @include font-family(sans);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.18px;
+  text-transform: uppercase;
+
+  // An adjacent heading of one level lower shouldn't have a lot of white space in between
+  + &,
+  + .u-heading-s {
+    margin-top: 0;
+  }
+}
+
+@mixin u-heading-s {
+  @include font-family(sans);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.18px;
+  text-transform: uppercase;
+
+  // An adjacent heading of one level lower shouldn't have a lot of white space in between
+  + &,
+  + .u-heading-xs {
+    margin-top: 0;
+  }
+}
+
+@mixin u-heading-xs {
+  @include font-family(sans);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  @include breakpoint(lima) {
+    margin-top: 4rem;
+  }
+}
+
+/// Set the font-family, taking into account whether or not the external fonts
+/// have loaded.
+///
+/// @param {string} $group - @link $fonts and $fallback-fonts in _variables.scss
+@mixin font-family($group: sans) {
+  font-family: map-get($fonts, $group);
+}

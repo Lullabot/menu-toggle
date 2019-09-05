@@ -1,0 +1,133 @@
+// Layout Variables
+// -----------------------------------------------------------------------------
+
+/// Site's maximum width
+$grid-max-width: 1280px;
+
+/// Body padding per breakpoint
+$body-padding: (
+  default: 24px,
+  kilo: 36px,
+  lima: 36px,
+  papa: 80px,
+  romeo: 80px,
+);
+
+/// Default Gutters
+$gutter: 18px;
+
+/// Breakpoint minimum widths
+/// All breakpoints should use nato-phonetic alphabet names
+/// @see {function} breakpoint
+$breakpoints: (
+  kilo: 550px, // Small
+  lima: 820px,
+  papa: 1050px, // Medium
+  romeo: 1200px,
+  sierra: 1300px,
+  tango: 1400px, // Wide
+  victor: 1600px, // Widest breaking point for widest images
+  grid-max: $grid-max-width
+);
+
+// Palettes
+// -----------------------------------------------------------------------------
+
+/// Primary Color palette
+/// Colors should be named after their hue and assigned a number roughly
+/// based on their lightness (0 is black and 100 is white)
+///
+/// @see {function} palette
+$palette: (
+  blue-15: #036,          // Navy Blue
+  blue-30: #005e86,       // Dark Blue
+  blue-50: #0096d6,       // Link Blue
+
+  grayscale-0:   #000,    // Rich black
+  grayscale-20:  #2c2a27, // Pastel Black
+  grayscale-45:  #596a74, // Medium Blue Gray
+  grayscale-50:  #666b6e, // Dark Gray
+  grayscale-60:  #a0a5a9, // Medium Gray
+  grayscale-75:  #cdd2d5, // Medium Light Gray
+  grayscale-80:  #d3d3d3, // Light Gray
+  grayscale-85:  #ebebeb, // Table Headers
+  grayscale-90:  #f5f5f5, // Extra Light Gray
+  grayscale-100: #fff,    // White
+);
+
+/// Color palette by its use
+/// @see {function} palette
+$palette-by-function: (
+  text-color: palette(grayscale-20),
+  button-blue: palette(blue-50),
+  button-blue-hover: palette(blue-45),
+  button-tertiary-border: palette(grayscale-60),
+  button-tertiary-color: palette(grayscale-60),
+  link-color: palette(blue-15),
+  link-color-hover: palette(blue-30),
+  link-color-visited: palette(blue-5),
+  site-background: palette(grayscale-100),
+);
+
+// Custom functionality breakpoints
+// -----------------------------------------------------------------------------
+
+/// For use with specific functionality (e.g. navigation menu change).
+/// @see {function} breakpoint
+/// @see {variable} $breakpoints
+$nav-break: 'papa';
+
+// Modular typography settings
+// -----------------------------------------------------------------------------
+
+/// Vertical rhythm per breakpoint
+/// @see {function} vertical-rhythm
+$vertical-rhythm: 18px;
+
+/// Modular Font sizes
+/// Saving some cpu compile cycles by storing this staticly.
+/// @link https://www.modularscale.com/?18&px&1.1
+// sass-lint:disable indentation
+$modular-font-sizes: (
+  17: 82.71px,
+  16: 75.19px,
+  15: 68.355px,
+  14: 62.141px,
+  13: 56.492px,
+  12: 51.356px,
+  11: 46.687px,
+  10: 42.443px,
+   9: 38.585px,
+   8: 35.077px,
+   7: 31.888px,
+   6: 28.989px,
+   5: 26.354px,
+   4: 23.958px,
+   3: 21.78px,
+   2: 19.8px,
+   1: 18px,
+   0: 16.364px,
+  -1: 14.876px,
+  -2: 13.524px,
+  -3: 12.294px,
+  -4: 11.177px,
+  -5: 10.161px,
+);
+// sass-lint:enable indentation
+
+// Other typography settings
+// -----------------------------------------------------------------------------
+
+/// Base font size
+$base-font-size: ms(1);
+
+/// Fonts
+/// @see {mixin} font-family
+$fonts: (
+  'serif': #{'ff-tisa-web-pro', Georgia, serif},
+  'sans': #{Avenir, Helvetica, Arial, sans-serif},
+  'monospace': #{Consolas, monospace},
+);
+
+/// Transition Timing Functions
+$cubic-bezier: cubic-bezier(0.55, 0.085, 0, 0.99);

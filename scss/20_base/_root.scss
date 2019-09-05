@@ -1,0 +1,34 @@
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll; // Make vertical scrollbar persistent to prevent elements jumping around
+
+  &:focus:not(:focus-visible) {
+    outline: 0;
+  }
+}
+
+body {
+  $body-font-size: 16px;
+  @include font-family(serif);
+  font-size: $body-font-size;
+  // Unitless line-height for body, because it's best
+  // https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
+  line-height: 1.6;
+  background: palette(site-background, $palette-by-function);
+  color: palette(text-color, $palette-by-function);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.body-inner {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 2rem;
+  min-height: 100vh;
+  @include breakpoint(lima) {
+    padding: 0 3rem;
+  }
+  @include breakpoint(papa) {
+    padding: 0 4rem;
+  }
+}

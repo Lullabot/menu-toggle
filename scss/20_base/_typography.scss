@@ -1,0 +1,134 @@
+h1 {
+  @include u-heading-xl;
+}
+
+h2 {
+  @include u-heading-l;
+}
+
+h3 {
+  @include u-heading-xm;
+}
+
+h4 {
+  @include u-heading-m;
+}
+
+h5 {
+  @include u-heading-s;
+}
+
+h6 {
+  @include u-heading-xs;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:not([class]):first-child {
+    margin-top: 0;
+  }
+}
+
+
+// Text elements
+// -----------------------------------------------------------------------------
+
+a {
+  text-decoration: none;
+  color: palette(link-color, $palette-by-function);
+
+  &:hover,
+  &:focus {
+    color: palette(link-color-hover, $palette-by-function);
+  }
+
+  &:before {
+    background-color: palette(link-color-hover, $palette-by-function);
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+ul,
+ol {
+  margin: 2rem 0;
+  padding: 0 0 0 2rem;
+
+  ul,
+  ol {
+    margin: 1rem 0;
+  }
+}
+
+
+li {
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+pre {
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 2rem #{$gutter * 2};
+  min-width: 100%;
+  max-width: 100vw;
+  border: 1px solid palette(grayscale-80);
+  box-shadow: inset 6px 0 0 0 palette(grayscale-80);
+  background: palette(grayscale-90);
+  overflow: scroll;
+  font-family: Consolas, 'Courier New', Courier, monospace;
+
+  @include breakpoint(lima) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+blockquote {
+  margin: 5rem 0;
+
+  @include breakpoint(lima) {
+    margin: 6rem 0;
+  }
+}
+
+cite {
+  @include font-family(sans);
+  font-style: normal;
+}
+
+mark {
+  display: inline-block;
+  margin: 0 -0.125em;
+  padding: 0 0.125em;
+  background-color: #f1e890;
+}
+
+dt {
+  font-weight: bold;
+}
+
+abbr[title] {
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border 0.5s;
+
+  &:hover {
+    border-bottom-color: palette(link-color, $palette-by-function);
+  }
+}

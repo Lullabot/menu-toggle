@@ -1,0 +1,65 @@
+table {
+  @include font-family(sans);
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  max-width: $grid-max-width;
+}
+
+td,
+th,
+caption {
+  padding: 1rem;
+  border: 0;
+  @include breakpoint(lima) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+tr {
+  &:nth-of-type(odd) {
+    border: 0;
+    background: palette(grayscale-90);
+  }
+
+  &:nth-of-type(even) {
+    border: 0;
+    background: rgba(palette(grayscale-90), 0.5);
+  }
+}
+
+td,
+th {
+  &:only-child {
+    text-align: center;
+  }
+}
+
+th {
+  text-align: left;
+
+  thead &,
+  tfoot & {
+    padding: 1rem;
+    background: palette(grayscale-85);
+    @include breakpoint(lima) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+td {
+  border-bottom: 1px solid palette(grayscale-85);
+
+  th & {
+    font-weight: bold;
+  }
+}
+
+caption {
+  @include font-family(sans);
+  padding: 1rem;
+  text-align: center;
+  background: palette(grayscale-90);
+}

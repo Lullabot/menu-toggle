@@ -1,0 +1,93 @@
+/// Breakpoint helper
+///
+/// @param {string} $breakpoint This can be a breakpoint from the $breakpoints map, or a value in pixels.
+/// @param {string} $min-max Can be either 'min-width' or 'max-width'. Defaults to 'min-width'.
+@mixin breakpoint($breakpoint, $min-max: 'min-width') {
+  $output: false;
+
+  @if (type-of($breakpoint) == number) {
+    $output: $breakpoint;
+  }
+  @else {
+    @if $min-max == 'max-width' {
+      $output: #{map-get($breakpoints, $breakpoint) - 1px };
+    }
+    @else {
+      $output: #{map-get($breakpoints, $breakpoint)};
+    }
+  }
+
+  @if $breakpoint == default {
+    @content;
+  }
+  @else {
+    @media ($min-max: #{$output}) {
+      @content;
+    }
+  }
+}
+
+/// Wraps ruleset within media query that only affects IE10-11.
+@mixin ie11 {
+  @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}
+
+/// Wraps ruleset within media and @supports queries that only affect browsers that don't support grid.
+@mixin no-grid {
+  @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+  @supports not (display: grid) {
+    @content;
+  }
+}
+
+/// Wraps ruleset within media and @supports queries that only affect browsers that don't support object-fit.
+@mixin no-object-fit {
+  @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+  @supports not (object-fit: cover) {
+    @content;
+  }
+}
+
+/// Element invisibile (for accessibility)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+
+  &.focusable {
+    &:active,
+    &:focus {
+      position: relative;
+      z-index: 5;
+      clip: auto;
+      clip-path: none;
+      overflow: visible;
+      height: auto;
+      width: auto;
+    }
+  }
+}
+
+/// Element visible (for accessibility)
+@mixin visually-unhide {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: nowrap;
+  clip-path: none;
+  border: 0;
+}
