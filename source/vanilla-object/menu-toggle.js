@@ -25,7 +25,9 @@
  */
 
 // Keeps track of last open toggle
-document.querySelector('body').dataset.menuToggleLastOpenToggleTarget = '';
+window.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('body').dataset.menuToggleLastOpenToggleTarget = '';
+});
 
 const menuToggle = {};
 
@@ -36,7 +38,10 @@ const menuToggle = {};
  */
 menuToggle.AdjustMenuAndPageHeights = ($menuToggleTarget) => {
   const $bodyInner = document.querySelector('.body-inner');
-  if ($menuToggleTarget.classList.contains('menu-toggle__toggleable--full-height')) {
+  if (
+    $menuToggleTarget.classList.contains('menu-toggle__toggleable--full-height')
+    || $menuToggleTarget.classList.contains('menu-toggle__toggleable--full-height-on-open')
+  ) {
     $menuToggleTarget.style.setProperty('height', `${window.innerHeight - $menuToggleTarget.getBoundingClientRect().top}px`);
     $bodyInner.style.setProperty('min-height', window.innerHeight);
     document.getElementsByTagName('body')[0].classList.add('u-body-no-scroll');
@@ -56,6 +61,10 @@ menuToggle.AdjustMenuAndPageHeights = ($menuToggleTarget) => {
  * @param {function}   postShutCallback  Function to call after shut code
  */
 menuToggle.Shut = ($menuToggleButton, $menuToggleTarget, postShutCallback) => {
+  // Quick exit if it's already shut
+  if (!$menuToggleButton.classList.contains('js-menu-toggle-button--active')) {
+    return;
+  }
   const $body = document.querySelector('body');
   const $bodyInner = document.querySelector('.body-inner');
   $bodyInner.style.removeProperty('min-height');
@@ -67,8 +76,12 @@ menuToggle.Shut = ($menuToggleButton, $menuToggleTarget, postShutCallback) => {
   }
   $menuToggleTarget.classList.remove('js-menu-toggle__toggleable--open');
   if ($menuToggleTarget.getAttribute('id') === $body.dataset.menuToggleLastOpenToggleTarget) {
-    if ($menuToggleTarget.dataset.parentMenuToggle)
-    $body.dataset.menuToggleLastOpenToggleTarget = '';
+    if ($menuToggleTarget.dataset.parentMenuToggle) {
+      $body.dataset.menuToggleLastOpenToggleTarget = $menuToggleTarget.dataset.parentMenuToggle;
+    }
+    else {
+      $body.dataset.menuToggleLastOpenToggleTarget = '';
+    }
   }
 
   // Check to see if this is a child toggle and manage classes
@@ -150,15 +163,22 @@ menuToggle.BackOut = (postShutCallback) => {
 menuToggle.Open = ($menuToggleButton, $menuToggleTarget, postOpenCallback, postShutCallback) => {
   const $body = document.querySelector('body');
   const currentToggleTarget = $menuToggleButton.getAttribute('aria-controls');
+  const menuToggleLastOpenToggleTarget = $body.dataset.menuToggleLastOpenToggleTarget;
+
   // Shut an open toggle so long as it isn't a parent of the one we're opening
   if (
-    $body.dataset.menuToggleLastOpenToggleTarget
-    && $body.dataset.menuToggleLastOpenToggleTarget !== currentToggleTarget
+    menuToggleLastOpenToggleTarget
+    && menuToggleLastOpenToggleTarget !== currentToggleTarget
   ) {
-    const childOfOpenToggleTarget = document.getElementById($body.dataset.menuToggleLastOpenToggleTarget).contains(document.getElementById(currentToggleTarget));
+    const $lastOpenToggleTarget = document.getElementById(menuToggleLastOpenToggleTarget);
+    const childOfOpenToggleTarget = $lastOpenToggleTarget.contains(document.getElementById(currentToggleTarget));
     if (!childOfOpenToggleTarget) {
       // console.log('Back Out During Open', $menuToggleButton);
-      menuToggle.BackOut(postShutCallback);
+      // Find the toggle target's button
+      const $lastOpenToggleTargetsButton = document.querySelector('[aria-controls="' + menuToggleLastOpenToggleTarget + '"]');
+      if ($lastOpenToggleTargetsButton) {
+        menuToggle.Shut($lastOpenToggleTargetsButton, $lastOpenToggleTarget, postShutCallback);
+      }
     }
   }
   menuToggle.AdjustMenuAndPageHeights($menuToggleTarget);
@@ -367,42 +387,6 @@ menuToggle.Init = (
 
     $menuToggleTarget.appendChild($menuToggleableClose);
   }
-
-  // Hide element after shut animation
-  $menuToggleTarget.addEventListener('transitioned', () => {
-    // If the toggle button is hidden this functionality is disabled, get outta hurr
-    if (getComputedStyle($menuToggleButton).display === 'none') {
-      return;
-    }
-
-    // After closing animation
-    if (!$menuToggleTarget.classList.contains('js-menu-toggle__toggleable--open')) {
-      // Miscellaneous Cleanup
-      $menuToggleTarget.classList.remove('js-menu-toggle__toggleable--active-child');
-      if ($menuToggleTarget.scrollTop !== 0) {
-        $menuToggleTarget.scrollTop = 0;
-      }
-      if ($menuToggleTarget.scrollLeft !== 0) {
-        $menuToggleTarget.scrollLeft = 0;
-      }
-    }
-
-    // When it's completed animating open
-    else {
-      const $parentMenuToggleTarget = document.getElementById($menuToggleTarget.dataset.parentMenuToggle);
-      if ($parentMenuToggleTarget) {
-        $parentMenuToggleTarget.classList.add('js-menu-toggle__toggleable--active-child--transitioned');
-      }
-      // Addressing some bug where a toggle opens and the height isn't set correctly
-      if (
-        !$menuToggleTarget.classList.contains('menu-toggle__toggleable--full-height')
-        && $menuToggleTarget.querySelector('.menu-toggle__toggleable-content-wrapper').offsetHeight < $menuToggleTarget.offsetHeight
-      ) {
-        menuToggle.AdjustMenuAndPageHeights($menuToggleTarget);
-      }
-    }
-
-  });
 
   optimizedResize.add(() => {
     const menuToggleButtonDisplay = getComputedStyle($menuToggleButton).display;
