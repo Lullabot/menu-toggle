@@ -179,10 +179,7 @@ menuToggle.Shut = function ($menuToggleButton, $menuToggleTarget, postShutCallba
       // Shut open children when it's convenient
       setTimeout(menuToggle.Shut($activeMenuToggleChildren[i], document.getElementById($activeMenuToggleChildren[i].getAttribute('aria-controls')), postShutCallback), 0);
     }
-  } // Put focus on toggle's button after close
-
-
-  $menuToggleButton.focus();
+  }
 
   if (typeof postShutCallback === 'function') {
     postShutCallback($menuToggleButton, $menuToggleTarget, $parentMenuToggleTarget);
